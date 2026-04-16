@@ -23,8 +23,8 @@ for skill in skills:
 skill_percent = (df[skills].sum() / len(df) * 100).sort_values(ascending=False)
 
 col1, col2 = st.columns(2)
-col1.metric("Total Jobs", len(df))
-col2.metric("Top Skill", skill_percent.idxmax())
+col1.metric("📄 Total Job Listings", len(df))
+col2.metric("🔥 Most In-Demand Skill", skill_percent.idxmax().upper())
 
 st.markdown("---")
 st.subheader("Skill Summary by Role")
