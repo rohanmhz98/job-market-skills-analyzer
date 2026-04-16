@@ -18,6 +18,15 @@ for skill in skills:
 st.subheader("Skill Summary by Role")
 skill_summary = df.groupby("role_group")[skills].sum()
 st.dataframe(skill_summary)
+role = st.selectbox("Select Role", df["role_group"].unique())
+
+filtered = df[df["role_group"] == role]
+
+st.subheader(f"Skills for {role}")
+
+filtered_summary = filtered[skills].sum()
+
+st.bar_chart(filtered_summary)
 
 fig, ax = plt.subplots(figsize=(12,6))
 skill_summary.T.plot(kind="bar", ax=ax)
