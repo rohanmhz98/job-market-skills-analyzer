@@ -6,6 +6,7 @@ st.set_page_config(page_title="Job Market Skills Analyzer", layout="wide")
 
 st.title("📊 Job Market Skills Analyzer")
 st.markdown("Analyze in-demand skills across Analyst, Business Analyst, and Data Scientist roles.")
+st.info("This app analyzes job descriptions to identify the most in-demand skills across different roles.")
 st.markdown("---")
 
 df = pd.read_csv("jobs.csv")
@@ -43,7 +44,8 @@ st.pyplot(fig)
 st.markdown("---")
 st.subheader("Filter by Role")
 
-role = st.selectbox("Select Role", df["role_group"].unique())
+st.sidebar.header("Filters")
+role = st.sidebar.selectbox("Select Role", df["role_group"].unique())
 filtered = df[df["role_group"] == role]
 
 st.subheader(f"Skills for {role}")
@@ -54,6 +56,12 @@ st.markdown("---")
 st.subheader("Top Skills")
 overall_skills = df[skills].sum().sort_values(ascending=False)
 st.bar_chart(overall_skills)
+st.download_button(
+    "Download Dataset",
+    df.to_csv(index=False),
+    file_name="jobs.csv",
+    mime="text/csv"
+)
 
 st.markdown("---")
 st.subheader("Skill Percentage")
